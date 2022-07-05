@@ -1,24 +1,6 @@
 {
   "city": [
     {
-      "id": 1,
-      "name": "Lucknow",
-      "population": 8654356,
-      "country": []
-    },
-    {
-      "name": "Delhi",
-      "population": "7654356",
-      "country": "",
-      "id": 2
-    },
-    {
-      "name": "Delhi",
-      "population": "7654356",
-      "country": "",
-      "id": 3
-    },
-    {
       "name": "Pune",
       "population": "7865432",
       "country": {
@@ -28,13 +10,31 @@
       "id": 4
     },
     {
-      "name": "",
-      "population": "",
+      "name": "Paris",
+      "population": "786543",
       "country": {
-        "id": 1,
-        "name": "India"
+        "name": "France",
+        "id": 2
       },
       "id": 5
+    },
+    {
+      "name": "Nice",
+      "population": "67543",
+      "country": {
+        "name": "France",
+        "id": 2
+      },
+      "id": 6
+    },
+    {
+      "name": "Lile",
+      "population": "234567",
+      "country": {
+        "name": "France",
+        "id": 2
+      },
+      "id": 7
     }
   ],
   "country": [
@@ -45,6 +45,10 @@
     {
       "name": "France",
       "id": 2
+    },
+    {
+      "name": "England",
+      "id": 3
     }
   ]
 }

@@ -9,6 +9,9 @@ export const actions = {
   GET_CITY_REQUEST: "GET_CITY_REQUEST",
   GET_CITY_SUCCESS: "GET_CITY_SUCCESS",
   GET_CITY_FAILURE: "GET_CITY_FAILURE",
+  DELETE_CITY_REQUEST: "DELETE_CITY_REQUEST",
+  DELETE_CITY_SUCCESS: "DELETE_CITY_SUCCESS",
+  DELETE_CITY_FAILURE: "DELETE_CITY_FAILURE",
   GET_COUNTRY_REQUEST: "GET_COUNTRY_REQUEST",
   GET_COUNTRY_SUCCESS: "GET_COUNTRY_SUCCESS",
   GET_COUNTRY_FAILURE: "GET_COUNTRY_FAILURE",
@@ -44,6 +47,16 @@ export const getCitySuccess = (payload) => ({
 export const getCityFailure = () => ({
   type: actions.GET_CITY_FAILURE,
 });
+export const deleteCityRequest = () => ({
+  type: actions.DELETE_CITY_REQUEST,
+});
+export const deleteCitySuccess = (payload) => ({
+  type: actions.DELETE_CITY_SUCCESS,
+  payload,
+});
+export const deleteCityFailure = () => ({
+  type: actions.DELETE_CITY_FAILURE,
+});
 export const getCountryRequest = () => ({
   type: actions.GET_COUNTRY_REQUEST,
 });
@@ -75,15 +88,19 @@ export const addCountry = (payload) => (dispatch) => {
     .then((res) => dispatch(addCountrySuccess(res)))
     .catch((err) => dispatch(addCountryFailure(err)));
 };
-export const getCity = () => (dispatch) => {
-  dispatch(getCityRequest());
-  axios({
-    url: "http://localhost:8080/city",
-    method: "GET",
-  })
-    .then((res) => dispatch(getCitySuccess(res.data)))
-    .catch((err) => dispatch(getCityFailure(err)));
-};
+export const getCity =
+  ({ sort, page }) =>
+  (dispatch) => {
+    dispatch(getCityRequest());
+    axios({
+      url: "http://localhost:8080/city",
+      method: "GET",
+      _sort: sort,
+      _page: page,
+    })
+      .then((res) => dispatch(getCitySuccess(res.data)))
+      .catch((err) => dispatch(getCityFailure(err)));
+  };
 export const getCountry = () => (dispatch) => {
   dispatch(getCountryRequest());
   axios({
@@ -92,4 +109,18 @@ export const getCountry = () => (dispatch) => {
   })
     .then((res) => dispatch(getCountrySuccess(res.data)))
     .catch((err) => dispatch(getCountryFailure(err)));
+};
+export const deleteCity = (id) => (dispatch) => {
+  dispatch(deleteCityRequest());
+  axios({
+    url: `http://localhost:8080/city/${id}`,
+    method: "DELETE",
+    params: id,
+  })
+    .then((res) =>
+      dispatch(deleteCitySuccess(res.data)).then((res) =>
+        dispatch(getCitySuccess(res.data))
+      )
+    )
+    .catch((err) => dispatch(deleteCityFailure(err)));
 };
